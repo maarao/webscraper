@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Article Authenticity Checker",
+  "description": "A Chrome extension that checks the authenticity of articles using machine learning.",
+  "version": "1.0",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "host_permissions": ["http://127.0.0.1:5000/process"],
+  "permissions": ["activeTab", "scripting"],
+  "web_accessible_resources": [
+    {
+      "resources": ["popup.js"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ]
+}
