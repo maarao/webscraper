@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 
 app = Flask(__name__)
 CORS(app)
@@ -17,6 +18,9 @@ def predict():
     page = requests.get(URL)
     soup = BeautifulSoup(page.content, 'html.parser')
 
+    parsed_url = urlparse(URL).netloc
+    base_url = parsed_url[4:]
+    
     text = ""
     # Find all <p> elements and print their text
     for paragraph in soup.find_all('p'):
