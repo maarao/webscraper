@@ -7,16 +7,16 @@ import {
 } from "@/components/ui/tooltip";
 import { getCurrentTab } from "./functions.js";
 import ThemeToggle from "./components/ThemeToggle.js";
-import { useState } from "react";
+// import { useState } from "react";
 import MainRating from "./components/MainRating.js";
 import SubRatings from "./components/SubRatings.js";
 import { BotIcon } from "lucide-react";
 
 function App() {
-  const [overallScore, setOverallScore] = useState(87);
+  // const [overallScore, setOverallScore] = useState(87);
 
   return (
-    <main className='grid place-items-center py-8 w-[350px] h-[600px] border border-red-500 gap-4'>
+    <main className='grid place-items-center py-8 w-[350px] h-[600px] border border-red-500 gap-4 animate-slide-from-top-with-fade'>
       <div className='grid grid-cols-3 place-items-center gap-16 -mt-8'>
         <BotIcon />
         <TooltipProvider>
