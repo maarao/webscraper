@@ -9,10 +9,14 @@ export function getCurrentTab() {
 
 const sendUrl = (tab) => {
   let url = tab.url;
-  fetch("http://localhost:5000/process", {
+  fetch("http://127.0.0.1:5000/process", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ text: url }),
-  });
-  console.log(url);
-  console.log(tab.url);
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error("Error:", error));
 };

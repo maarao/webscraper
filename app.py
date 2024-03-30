@@ -11,12 +11,10 @@ def home():
 
 @app.route('/process', methods=['POST'])
 def predict():
-    URL = request.form.get('text')
-    page = requests.get(URL)
+    URL = request.get_json()['text']
+    print(URL)
 
-    print(page.text)
-
-    return "done"
+    return request.get_json()
 
 if __name__ == '__main__':
     app.run(debug=True)
