@@ -31,8 +31,19 @@ def fact_check(search_term):
         else:
             cleaned_urls.append(url)
 
-    base_urls = [urlparse(url).netloc[4:] for url in cleaned_urls]
-    print(base_urls)
+    base_urls = [urlparse(url).netloc for url in cleaned_urls]
+    filtered_urls = [url.replace('www.', '') if url.startswith('www.') else url for url in base_urls]
+    print(filtered_urls)
+
+    count_good = 0
+
+    trusted = ['bbc.com', 'reuters.com', 'apnews.com', 'npr.org', 'pbs.org', 'nytimes.com', 'washingtonpost.com', 'wsj.com', 'economist.com', 'bbc.co.uk', 'dw.com', 'france24.com', 'theguardian.com', 'abcnews.go.com', 'cbsnews.com', 'nbcnews.com', 'cnn.com', 'msnbc.com', 'foxnews.com', 'bloomberg.com', 'forbes.com', 'theatlantic.com', 'newyorker.com', 'slate.com', 'politico.com', 'timesofindia.indiatimes.com', 'theglobeandmail.com', 'lemonde.fr']
+
+    for url in filtered_urls:
+        if url in trusted:
+            count_good += 1
+
+    return count_good
 
 if __name__ == '__main__':
-    fact_check("is the earth flat")
+    print(fact_check("The Pope supports restitution of Indigenous items to Canada. So why haven't they come home?"))
