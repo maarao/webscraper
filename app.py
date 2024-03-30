@@ -9,7 +9,7 @@ CORS(app)
 def home():
     return render_template('index.html')
 
-@app.route('/predict', methods=['POST'])
+@app.route('/process', methods=['POST'])
 def predict():
     URL = request.form.get('text')
     page = requests.get(URL)
