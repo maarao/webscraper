@@ -11,7 +11,7 @@ const sendUrl = (tab) => {
   let url = tab.url;
   fetch("http://localhost:5000/process", {
     method: "POST",
-    body: JSON.stringify({ url }),
+    body: JSON.stringify({ text: url }),
   });
   console.log(url);
   console.log(tab.url);
