@@ -1,3 +1,4 @@
+import re
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
@@ -6,10 +7,13 @@ def fact_check(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     h1_elements = soup.find_all('h1')
+
     if h1_elements:
-        search_term = h1_elements[0].text.strip()
+        # Remove special characters from the title
+        search_term = re.sub(r'[^\w\s]', '', h1_elements[0].text.strip())
     else:
         search_term = ""
+
 
     base_url = "https://www.google.com/search?q="
     formatted_term = '+'.join(search_term.split())
