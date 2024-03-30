@@ -20,9 +20,7 @@ def predict():
     text = ""
     # Find all <p> elements and print their text
     for paragraph in soup.find_all('p'):
-        print(paragraph.get_text())
-
-    text += request.get_json()
+        text+= paragraph.get_text()
 
     print(text)
     return jsonify({'text': text})
