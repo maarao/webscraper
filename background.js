@@ -1,10 +1,15 @@
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.action == "getDOMContent") {
-    chrome.tabs.executeScript({
-      code: 'document.body.innerText'
-    }, function(result) {
-      sendResponse({ content: result[0] });
+const extensions = 'https://developer.chrome.com/docs/extensions'
+const webstore = 'https://developer.chrome.com/docs/webstore'
+
+chrome.action.onClicked.addListener(async (tab) => {
+    // Retrieve the action badge to check if the extension is 'ON' or 'OFF'
+    const prevState = await chrome.action.getBadgeText({ tabId: tab.id });
+    // Next state will always be the opposite
+    const nextState = prevState === 'ON' ? 'OFF' : 'ON'
+
+    // Set the action badge to the next state
+    await chrome.action.setBadgeText({
+      tabId: tab.id,
+      text: nextState,
     });
-    return true;
-  }
 });
