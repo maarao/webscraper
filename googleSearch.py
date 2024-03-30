@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 
 def fact_check(search_term):
     base_url = "https://www.google.com/search?q="
@@ -30,14 +31,8 @@ def fact_check(search_term):
         else:
             cleaned_urls.append(url)
 
-    print(cleaned_urls)
-
-
-    # links = ""
-    # # Find all <a> elements within <div class="tF2Cxc"> and print their href attribute
-    # for paragraph in soup.find_all('cite'):
-    #     links += paragraph.get_text()
-    # print(soup)
+    base_urls = [urlparse(url).netloc[4:] for url in cleaned_urls]
+    print(base_urls)
 
 if __name__ == '__main__':
     fact_check("is the earth flat")
