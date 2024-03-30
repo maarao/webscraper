@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 CORS(app)
@@ -12,9 +13,19 @@ def home():
 @app.route('/process', methods=['POST'])
 def predict():
     URL = request.get_json()['text']
-    print(URL)
 
-    return request.get_json()
+    page = requests.get(URL)
+    soup = BeautifulSoup(page.content, 'html.parser')
+
+    text = ""
+    # Find all <p> elements and print their text
+    for paragraph in soup.find_all('p'):
+        print(paragraph.get_text())
+
+    text += request.get_json()
+
+    print(text)
+    return jsonify({'text': text})
 
 if __name__ == '__main__':
     app.run(debug=True)
