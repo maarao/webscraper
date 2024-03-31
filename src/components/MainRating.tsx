@@ -24,7 +24,7 @@ const MainRating = ({ score }: { score: number }) => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <div className='size-64 rounded-full shadow-2xl dark:shadow-zinc-900'>
+      <div className='size-[15.5rem] rounded-full shadow-lg dark:shadow-2xl dark:shadow-zinc-900'>
         <CircularProgressbarWithChildren
           value={score}
           styles={buildStyles({
