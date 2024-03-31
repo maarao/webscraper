@@ -18,7 +18,7 @@ const sendUrl = (tab) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      console.log(data.score);
     })
     .catch((error) => console.error("Error:", error));
 };

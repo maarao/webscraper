@@ -40,8 +40,10 @@ def predict():
     classification_score = obj.label_classification(text)
     fact_check_score = fact_check(URL)
 
+    score = fact_check_score / 10 * .3 + classification_score * .7
+
     # print("Text", text)
-    return jsonify({'score': fact_check_score / 10 * .3 + classification_score * .7, 'fact_check': fact_check_score})
+    return jsonify({'score': score, 'fact_check': fact_check_score})
 
 def preprocess_text(text):
 
