@@ -6,9 +6,11 @@ import {
 } from "@/components/ui/hover-card";
 
 const SubRatings = ({
+  consistency,
   polarity,
   factuality,
 }: {
+  consistency: number;
   polarity: number;
   factuality: number;
 }) => {
@@ -46,10 +48,10 @@ const SubRatings = ({
             </p>
           </HoverCardContent>
         </HoverCard>
-        <p>3</p>
+        <p>{consistency}</p>
       </div>
       <Progress
-        value={32}
+        value={consistency}
         className='col-span-2'
         indicatorColor='bg-gradient-to-r from-rose-600 to-rose-400'
       />
