@@ -1,4 +1,7 @@
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import {
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from "react-circular-progressbar";
 import { useTheme } from "@/components/theme-provider";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -21,11 +24,12 @@ const MainRating = ({ score }: { score: number }) => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <h1 className=' text-center text-2xl'>Overall Score:</h1>
-      <div className='size-64'>
-        <CircularProgressbar
+      <h1 className=' text-center text-2xl font-light tracking-wide drop-shadow-2xl'>
+        Overall Score:
+      </h1>
+      <div className='size-64 rounded-full shadow-2xl dark:shadow-zinc-800'>
+        <CircularProgressbarWithChildren
           value={score}
-          text={`${score}%`}
           styles={buildStyles({
             // Rotation of path and trail, in number of turns (0-1)
             rotation: 0.25,
@@ -43,11 +47,13 @@ const MainRating = ({ score }: { score: number }) => {
             // pathTransition: 'none',
 
             // Colors
-            trailColor: `${WHITE}`,
+            trailColor: `${PRIMARY}`,
             textColor: `${PRIMARY}`,
             pathColor: `${color}`,
           })}
-        />
+        >
+          <p className='text-7xl font-extralight'>{`${score}%`}</p>
+        </CircularProgressbarWithChildren>
       </div>
     </div>
   );
