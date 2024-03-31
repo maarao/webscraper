@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   const fetchData = () => {
     setLoading(true);
@@ -26,13 +26,13 @@ function App() {
   };
 
   return (
-    <main className='flex flex-col items-center py-4 h-[350px] max-w-max p-4 gap-4 animate-slide-from-top-with-fade'>
+    <main className='border border-red-500 flex flex-col items-center py-4 max-h-[350px] w-[680px] p-4 gap-4 animate-slide-from-top-with-fade'>
       <div className='flex justify-between w-full items-center px-4'>
         <h1 className='text-4xl font-light tracking-wide'>Title</h1>
         <ThemeToggle />
       </div>
-      <Separator />
-      <div className='flex gap-8 items-center px-4 py-2'>
+      <Separator className='-mt-2' />
+      <div className='flex gap-8 items-center px-4'>
         <div>
           {loading ? (
             <Skeleton className='size-64 rounded-full' />

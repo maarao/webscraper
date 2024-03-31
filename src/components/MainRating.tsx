@@ -24,9 +24,6 @@ const MainRating = ({ score }: { score: number }) => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <h1 className=' text-center text-2xl font-light tracking-wide drop-shadow-2xl'>
-        Overall Score:
-      </h1>
       <div className='size-64 rounded-full shadow-2xl dark:shadow-zinc-900'>
         <CircularProgressbarWithChildren
           value={score}
@@ -52,6 +49,9 @@ const MainRating = ({ score }: { score: number }) => {
             pathColor: `${color}`,
           })}
         >
+          <h1 className=' text-center text-lg font-light tracking-wide drop-shadow-2xl'>
+            Overall Score:
+          </h1>
           <p className='text-7xl font-extralight'>{`${score}%`}</p>
         </CircularProgressbarWithChildren>
       </div>

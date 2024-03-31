@@ -3,7 +3,7 @@ import { Progress } from "./ui/progress";
 const SubRatings = () => {
   // return elements with categories in the left column and scores in the right
   return (
-    <div className='grid grid-rows-8 grid-cols-1 gap-y-2 w-48 place-items-center text-xl font-light tracking-wider'>
+    <div className='grid grid-rows-8 grid-cols-1 gap-y-1 scale-90 w-64 place-items-center text-xl font-light tracking-wider'>
       <div className='flex items-center justify-between w-full'>
         <h2 className='font-semibold'>Bias:</h2>
         <p>87</p>
