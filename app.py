@@ -42,8 +42,8 @@ def predict():
 
     real = obj.real_classification(class_text)
     bias = obj.bias_classification(class_text)
-    polar = polarity(sent_text)
-    subject = subjectivity(sent_text)
+    polar = polarity(sent_text) # Between [-1, 1] where -1 is negative and 1 is positive
+    subject = subjectivity(sent_text) # between 0 - 1 (1 is opinionated), (0 is factual)
     fact_check_score = fact_check(URL)
     classification_score = real + bias*0.2
     print(classification_score)
