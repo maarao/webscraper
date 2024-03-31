@@ -74,8 +74,8 @@ def subjectivity(text):
 def sentiment(text):
     text = [phrase for phrase in text if phrase.count(' ') > 2]
 
-    df = pd.read_csv('./data/articles.csv')
-
+    df = pd.read_csv("./data/articles.csv", index_col=0)
+    df['content'].fillna(' ', inplace=True)
 
     vectorizer = CountVectorizer(stop_words='english')
     x=vectorizer.fit_transform(df['content'])
