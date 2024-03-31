@@ -29,7 +29,7 @@ function App() {
   };
 
   return (
-    <main className='flex flex-col items-center justify-between py-4 w-[350px] h-[600px] border border-red-500 animate-slide-from-top-with-fade'>
+    <main className='flex flex-col items-center justify-between py-4 w-[350px] h-[600px] animate-slide-from-top-with-fade'>
       <div className='flex justify-between w-full items-center px-4'>
         <h1 className='text-4xl font-light tracking-wide'>Title</h1>
         <ThemeToggle />
