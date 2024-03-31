@@ -5,7 +5,13 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
-const SubRatings = ({ polarity }: { polarity: number }) => {
+const SubRatings = ({
+  polarity,
+  factuality,
+}: {
+  polarity: number;
+  factuality: number;
+}) => {
   // return elements with categories in the left column and scores in the right
   return (
     <div className='grid grid-rows-8 grid-cols-1 gap-y-1 scale-90 w-64 place-items-center text-xl font-light tracking-wider'>
@@ -82,10 +88,10 @@ const SubRatings = ({ polarity }: { polarity: number }) => {
             </p>
           </HoverCardContent>
         </HoverCard>
-        <p>62</p>
+        <p>{factuality}</p>
       </div>
       <Progress
-        value={62}
+        value={factuality}
         className='col-span-2'
         indicatorColor='bg-gradient-to-r from-yellow-500 to-yellow-300'
       />

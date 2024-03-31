@@ -10,11 +10,13 @@ import { Button } from "./components/ui/button.js";
 function App() {
   const [score, setScore] = useState(0);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
+  const [polarity, setPolarity] = useState(0);
+  const [factuality, setFactuality] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = () => {
     setLoading(true);
@@ -22,6 +24,8 @@ function App() {
     setTimeout(() => {
       setData(JSON.parse(localStorage.getItem("data")));
       setScore(Math.trunc(data.score * 100));
+      setPolarity(data.polarity);
+      setFactuality(data.factuality);
       setLoading(false);
     }, Math.random() * 200 + 1200);
   };
@@ -57,7 +61,7 @@ function App() {
               <Skeleton className='h-6 w-full' />
             </div>
           ) : (
-            <SubRatings polarity={0} />
+            <SubRatings polarity={polarity} factuality={factuality} />
           )}
         </div>
       </div>
