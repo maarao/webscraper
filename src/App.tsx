@@ -6,6 +6,11 @@ import SubRatings from "./components/SubRatings.js";
 import { Skeleton } from "./components/ui/skeleton.js";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "./components/ui/button.js";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 function App() {
   const [score, setScore] = useState(0);
@@ -14,9 +19,9 @@ function App() {
   const [factuality, setFactuality] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const fetchData = () => {
     setLoading(true);
@@ -26,7 +31,6 @@ function App() {
       setScore(Math.trunc(data.score * 100));
       setPolarity(Math.round(data.polarity * 100) / 100);
       setFactuality(Math.trunc(data.subjectivity * 100));
-      console.log(factuality);
       setLoading(false);
     }, Math.random() * 200 + 1200);
   };
@@ -36,7 +40,18 @@ function App() {
       <div className='flex justify-between w-full items-center px-4'>
         <h1 className='text-4xl font-light tracking-wide'>Title</h1>
         <div className='flex item-center gap-2'>
-          <Button variant='outline'>?</Button>
+          <HoverCard openDelay={0} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Button variant='outline'>?</Button>
+            </HoverCardTrigger>
+            <HoverCardContent
+              side='left'
+              sideOffset={30}
+              className='translate-y-4'
+            >
+              <p>Hover over a category for more information.</p>
+            </HoverCardContent>
+          </HoverCard>
           <ThemeToggle />
         </div>
       </div>
