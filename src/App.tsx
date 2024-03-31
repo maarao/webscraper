@@ -15,12 +15,13 @@ import {
 function App() {
   const [score, setScore] = useState(0);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
-  const [consistency, setConsistency] = useState(0);
+  const [relevance, setRelevance] = useState(0);
   const [polarity, setPolarity] = useState(0);
   const [factuality, setFactuality] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    localStorage.removeItem("data");
     fetchData();
   }, []);
 
@@ -30,7 +31,7 @@ function App() {
     setTimeout(() => {
       setData(JSON.parse(localStorage.getItem("data")));
       setScore(Math.trunc(data.score * 100));
-      setConsistency(data.fact_check * 10);
+      setRelevance(data.fact_check * 10);
       setPolarity(Math.round(data.polarity * 100) / 100);
       setFactuality(Math.trunc(data.subjectivity * 100));
       setLoading(false);
@@ -51,7 +52,9 @@ function App() {
               sideOffset={30}
               className='translate-y-4'
             >
-              <p>Hover over a category for more information.</p>
+              <p className='text-lg'>
+                Hover over a category for more information.
+              </p>
             </HoverCardContent>
           </HoverCard>
           <ThemeToggle />
@@ -61,7 +64,8 @@ function App() {
       <div className='flex gap-8 items-center px-4'>
         <div>
           {loading ? (
-            <Skeleton className='size-64 rounded-full' />
+            // <Skeleton className='size-64 rounded-full' />
+            <MainRating score={score} />
           ) : (
             <MainRating score={score} />
           )}
@@ -79,7 +83,11 @@ function App() {
               <Skeleton className='h-6 w-full' />
             </div>
           ) : (
-            <SubRatings polarity={polarity} factuality={factuality} />
+            <SubRatings
+              relevance={relevance}
+              polarity={polarity}
+              factuality={factuality}
+            />
           )}
         </div>
       </div>

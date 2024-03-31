@@ -44,15 +44,21 @@ def predict():
     bias = obj.bias_classification(class_text)
     p_mean, p_std = polarity(sent_text) # Between [-1, 1] where -1 is negative and 1 is positive
     subject = subjectivity(sent_text) # between 0 - 1 (1 is opinionated), (0 is factual)
-    fact_check_score, images_urls = fact_check(URL)
+    relevancy, images_urls = fact_check(URL)
     classification_score = real + bias*0.2
     print(classification_score)
 
-    score = fact_check_score / 10 * .3 + classification_score * .3 + ((polar / 2) + .5) * .2 + (1 - subject) * .2
+    bias_classificiation_name = ['Bias', 'Conspiracy', 'Fake', 'BS', 'Satire', 'Hate', 'Junksci', 'State']
+    bias_classificiation_percentages = [0.6, 0, 0.1, 0.2, 0.7, 0.5, 0, 1]
+
+    score = (relevancy / 10 * .3 + 
+             classification_score * .3 + 
+             ((polar / 2) + .5) * .2 + 
+             (1 - subject) * .2 + bias_classificiation_percentages[bias] * .2 + 0.1)
 
     print("Score: ",score)
     # print("Text", text)
-    return jsonify({'score': score, 'fact_check': fact_check_score, 'imageurls': images_urls, 'polarity': polar, 'subjectivity': subject})
+    return jsonify({'score': score, 'fact_check': relevancy, 'imageurls': images_urls, 'polarity': polar, 'subjectivity': subject, 'bias': bias_classificiation_name[bias], 'real': real})
 
 
 

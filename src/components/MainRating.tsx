@@ -59,7 +59,7 @@ const MainRating = ({ score }: { score: number }) => {
               <h1 className=' text-center text-lg font-light tracking-wide drop-shadow-2xl'>
                 Overall Score:
               </h1>
-              <p className='text-7xl font-extralight'>{`${score}%`}</p>
+              <p className='text-7xl'>{`${score}%`}</p>
             </HoverCardTrigger>
             <HoverCardContent side='right' sideOffset={30}>
               <p className='text-lg'>
