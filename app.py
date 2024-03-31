@@ -37,13 +37,19 @@ def predict():
     for paragraph in soup.find_all('p'):
         text.append(preprocess_text(paragraph.get_text()))
 
-    classification_score = obj.real_classification(text)
+    real = obj.real_classification(text)
+    bias = obj.bias_classification(text)
     fact_check_score = fact_check(URL)
+    classification_score = real + bias*0.2
+    print(classification_score)
 
     score = fact_check_score / 10 * .3 + classification_score * .7
 
+    print("Score: ",score)
     # print("Text", text)
     return jsonify({'score': score, 'fact_check': fact_check_score})
+
+
 
 def preprocess_text(text):
 
