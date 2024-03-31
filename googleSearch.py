@@ -2,6 +2,9 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 
 def fact_check(url):
     response = requests.get(url)
@@ -14,10 +17,17 @@ def fact_check(url):
     else:
         search_term = ""
 
+        # Tokenize the text into words
+    words = word_tokenize(search_term)
+
+    # Remove stopwords
+    stop_words = set(stopwords.words('english'))
+    words = [word.lower() for word in words if word.isalnum() and word.lower() not in stop_words]
+
 
     base_url = "https://www.google.com/search?q="
     formatted_term = '+'.join(search_term.split())
-    search = base_url + formatted_term
+    search = base_url + ' + '.join(words)
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
@@ -52,6 +62,7 @@ def fact_check(url):
 
     for url in filtered_urls:
         if url in trusted:
+            print(url)
             count_good += 1
 
     return count_good
