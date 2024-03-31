@@ -14,7 +14,6 @@ def fact_check(url):
     else:
         search_term = ""
 
-
     base_url = "https://www.google.com/search?q="
     formatted_term = '+'.join(search_term.split())
     search = base_url + formatted_term
@@ -47,6 +46,7 @@ def fact_check(url):
     filtered_urls = [url.replace('www.', '') if url.startswith('www.') else url for url in base_urls]
 
     count_good = 0
+    image_urls = []
 
     trusted = ['bbc.com', 'reuters.com', 'apnews.com', 'npr.org', 'pbs.org', 'nytimes.com', 'washingtonpost.com', 'wsj.com', 'economist.com', 'bbc.co.uk', 'dw.com', 'france24.com', 'theguardian.com', 'abcnews.go.com', 'cbsnews.com', 'nbcnews.com', 'cnn.com', 'msnbc.com', 'foxnews.com', 'bloomberg.com', 'forbes.com', 'theatlantic.com', 'newyorker.com', 'slate.com', 'politico.com', 'timesofindia.indiatimes.com', 'theglobeandmail.com', 'lemonde.fr']
 
@@ -54,8 +54,21 @@ def fact_check(url):
         if url in trusted:
             count_good += 1
 
-    return count_good
+            # Extracting image URLs
+            response = requests.get("https://" + url)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            img_tags = soup.find_all('img')
+            if img_tags:
+                image_url = img_tags[0]['src']  # Grabbing the first image URL
+                image_urls.append(image_url)
+
+            # Break the loop if you just need one image URL per URL
+            break
+
+    return count_good, image_urls
 
 if __name__ == '__main__':
-    url = "https://www.theglobeandmail.com/arts/article-vatican-indigenous-items-repatriation/"
-    print(fact_check(url))
+    url = "https://www.cnn.com/2024/03/29/economy/home-insurance-prices-climate-change/index.html"
+    count_good, image_urls = fact_check(url)
+    print("Number of trusted sources:", count_good)
+    print("Image URLs:", image_urls)
