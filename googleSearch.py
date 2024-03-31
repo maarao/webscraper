@@ -2,6 +2,9 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 
 def fact_check(url):
     response = requests.get(url)
@@ -14,9 +17,17 @@ def fact_check(url):
     else:
         search_term = ""
 
+        # Tokenize the text into words
+    words = word_tokenize(search_term)
+
+    # Remove stopwords
+    stop_words = set(stopwords.words('english'))
+    words = [word.lower() for word in words if word.isalnum() and word.lower() not in stop_words]
+
+
     base_url = "https://www.google.com/search?q="
     formatted_term = '+'.join(search_term.split())
-    search = base_url + formatted_term
+    search = base_url + ' + '.join(words)
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
@@ -46,29 +57,25 @@ def fact_check(url):
     filtered_urls = [url.replace('www.', '') if url.startswith('www.') else url for url in base_urls]
 
     count_good = 0
-    image_urls = []
 
     trusted = ['bbc.com', 'reuters.com', 'apnews.com', 'npr.org', 'pbs.org', 'nytimes.com', 'washingtonpost.com', 'wsj.com', 'economist.com', 'bbc.co.uk', 'dw.com', 'france24.com', 'theguardian.com', 'abcnews.go.com', 'cbsnews.com', 'nbcnews.com', 'cnn.com', 'msnbc.com', 'foxnews.com', 'bloomberg.com', 'forbes.com', 'theatlantic.com', 'newyorker.com', 'slate.com', 'politico.com', 'timesofindia.indiatimes.com', 'theglobeandmail.com', 'lemonde.fr']
 
+    index = 0
+    trustedIndexs = []
     for url in filtered_urls:
         if url in trusted:
+            print(url)
             count_good += 1
+            trustedIndexs.append(index)
 
-            # Extracting image URLs
-            response = requests.get("https://" + url)
-            soup = BeautifulSoup(response.text, 'html.parser')
-            img_tags = soup.find_all('img')
-            if img_tags:
-                image_url = img_tags[0]['src']  # Grabbing the first image URL
-                image_urls.append(image_url)
+        index += 1
 
-            # Break the loop if you just need one image URL per URL
-            break
+    trusted_articles = []
+    for index in trustedIndexs:
+        trusted_articles.append(cleaned_urls[index])
 
-    return count_good, image_urls
+    return count_good, trusted_articles
 
 if __name__ == '__main__':
-    url = "https://www.cnn.com/2024/03/29/economy/home-insurance-prices-climate-change/index.html"
-    count_good, image_urls = fact_check(url)
-    print("Number of trusted sources:", count_good)
-    print("Image URLs:", image_urls)
+    url = "https://www.theglobeandmail.com/arts/article-vatican-indigenous-items-repatriation/"
+    print(fact_check(url))
