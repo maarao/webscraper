@@ -18,11 +18,10 @@ function App() {
 
   const fetchData = () => {
     getCurrentTab();
-    // setScore(87);
     setTimeout(() => {
       setData(JSON.parse(localStorage.getItem("data")));
       setScore(Math.trunc(data.score * 100));
-    }, 5000);
+    }, 2000);
   };
 
   return (
