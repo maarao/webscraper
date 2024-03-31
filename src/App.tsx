@@ -79,7 +79,11 @@ function App() {
               <Skeleton className='h-6 w-full' />
             </div>
           ) : (
-            <SubRatings polarity={polarity} factuality={factuality} />
+            <SubRatings
+              consistency={consistency}
+              polarity={polarity}
+              factuality={factuality}
+            />
           )}
         </div>
       </div>
