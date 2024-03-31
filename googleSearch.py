@@ -60,12 +60,21 @@ def fact_check(url):
 
     trusted = ['bbc.com', 'reuters.com', 'apnews.com', 'npr.org', 'pbs.org', 'nytimes.com', 'washingtonpost.com', 'wsj.com', 'economist.com', 'bbc.co.uk', 'dw.com', 'france24.com', 'theguardian.com', 'abcnews.go.com', 'cbsnews.com', 'nbcnews.com', 'cnn.com', 'msnbc.com', 'foxnews.com', 'bloomberg.com', 'forbes.com', 'theatlantic.com', 'newyorker.com', 'slate.com', 'politico.com', 'timesofindia.indiatimes.com', 'theglobeandmail.com', 'lemonde.fr']
 
+    index = 0
+    trustedIndexs = []
     for url in filtered_urls:
         if url in trusted:
             print(url)
             count_good += 1
+            trustedIndexs.append(index)
 
-    return count_good
+        index += 1
+
+    trusted_articles = []
+    for index in trustedIndexs:
+        trusted_articles.append(cleaned_urls[index])
+
+    return count_good, trusted_articles
 
 if __name__ == '__main__':
     url = "https://www.theglobeandmail.com/arts/article-vatican-indigenous-items-repatriation/"
