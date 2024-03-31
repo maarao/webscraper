@@ -6,7 +6,7 @@ import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from ML.classification import Classification
-from ML.sentiment import polarity, subjectivity
+from ML.sentiment import polarity, subjectivity, sentiment
 from googleSearch import fact_check
 import nltk
 from nltk.corpus import stopwords
@@ -42,6 +42,7 @@ def predict():
 
     real = obj.real_classification(class_text)
     bias = obj.bias_classification(class_text)
+    sentiment = sentiment(sent_text) # values between -1 and 1
     p_mean, p_std = polarity(sent_text) # Between [-1, 1] where -1 is negative and 1 is positive
     subject = subjectivity(sent_text) # between 0 - 1 (1 is opinionated), (0 is factual)
     relevancy, images_urls = fact_check(URL)

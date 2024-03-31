@@ -92,9 +92,9 @@ def sentiment(text):
     accuracy = accuracy_score(y_pred, y_test)
 
     vector_x = vectorizer.transform(text)
-    predictions = mnb_classifier.predict(vector_x)
+    prediction = mnb_classifier.predict(vector_x).mean()
 
     # sentiment_map = {0:'negative',1:'neutral',2:'positive'}
     # predicted_sentiments = [sentiment_map[pred] for pred in predictions]
 
-    return predictions.mean()
+    return abs(prediction - 1)
