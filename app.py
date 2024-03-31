@@ -48,14 +48,17 @@ def predict():
     classification_score = real + bias*0.2
     print(classification_score)
 
+    bias_classificiation_name = ['Bias', 'Conspiracy', 'Fake', 'BS', 'Satire', 'Hate', 'Junksci', 'State']
+    bias_classificiation_percentages = [0.6, 0, 0.1, 0.2, 0.7, 0.5, 0, 1]
+
     score = (relevancy / 10 * .3 + 
              classification_score * .3 + 
              ((polar / 2) + .5) * .2 + 
-             (1 - subject) * .2)
+             (1 - subject) * .2 + bias_classificiation_percentages[bias] * .2 + 0.1)
 
     print("Score: ",score)
     # print("Text", text)
-    return jsonify({'score': score, 'fact_check': relevancy, 'imageurls': images_urls, 'polarity': polar, 'subjectivity': subject})
+    return jsonify({'score': score, 'fact_check': relevancy, 'imageurls': images_urls, 'polarity': polar, 'subjectivity': subject, 'bias': bias_classificiation_name[bias], 'real': real})
 
 
 
