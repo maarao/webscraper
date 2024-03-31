@@ -62,9 +62,9 @@ const SubRatings = ({ polarity }: { polarity: number }) => {
         <p>{polarity}</p>
         <div
           className={`border border-white h-6 absolute left-[${
-            polarity + 50
+            (polarity + 0.5) * 100
           }%] bottom-[4.10rem] z-10`}
-        ></div>
+        />
       </div>
       <Progress
         value={50}

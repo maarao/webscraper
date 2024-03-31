@@ -10,7 +10,7 @@ import { Button } from "./components/ui/button.js";
 function App() {
   const [score, setScore] = useState(0);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
