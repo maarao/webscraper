@@ -44,15 +44,15 @@ def predict():
     bias = obj.bias_classification(class_text)
     polar = polarity(sent_text) # Between [-1, 1] where -1 is negative and 1 is positive
     subject = subjectivity(sent_text) # between 0 - 1 (1 is opinionated), (0 is factual)
-    fact_check_score = fact_check(URL)
+    fact_check_score, images_urls = fact_check(URL)
     classification_score = real + bias*0.2
     print(classification_score)
 
-    score = fact_check_score / 10 * .3 + classification_score * .7
+    score = fact_check_score / 10 * .3 + classification_score * .3 + ((polar / 2) + .5) * .2 + subject * .2
 
     print("Score: ",score)
     # print("Text", text)
-    return jsonify({'score': score, 'fact_check': fact_check_score})
+    return jsonify({'score': score, 'fact_check': fact_check_score, 'images': images_urls, 'polarity': polar, 'subjectivity': subject})
 
 
 
