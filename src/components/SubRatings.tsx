@@ -41,7 +41,13 @@ const SubRatings = ({
       <Progress
         value={classification * 100}
         className='col-span-2'
-        indicatorColor='bg-gradient-to-r from-green-400 to-green-300'
+        indicatorColor={`bg-gradient-to-r ${
+          classification < 50
+            ? "from-rose-600 to-red-400"
+            : classification < 80
+            ? "from-yellow-500 to-yellow-300"
+            : "from-green-400 to-green-300"
+        }`}
       />
       <div className='flex items-center justify-between w-full'>
         <HoverCard openDelay={300} closeDelay={0}>
