@@ -22,6 +22,10 @@ from tokenizers import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.layers import Dense, Embedding, LSTM, SpatialDropout1D
 from sklearn.model_selection import train_test_split 
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
+
 
 
 def preprocess_text(text):
@@ -66,3 +70,31 @@ def subjectivity(text):
     subjectivity_mean = np.mean(subjectivity_score)
 
     return subjectivity_mean
+
+def sentiment(text):
+    text = [phrase for phrase in text if phrase.count(' ') > 2]
+
+    df = pd.read_csv('./data/articles.csv')
+
+
+    vectorizer = CountVectorizer(stop_words='english')
+    x=vectorizer.fit_transform(df['content'])
+
+    y = df['sentiment']
+
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.1, random_state=42)
+
+    mnb_classifier = MultinomialNB()
+    mnb_classifier.fit(X_train, y_train)
+
+    y_pred = mnb_classifier.predict(X_test)
+
+    accuracy = accuracy_score(y_pred, y_test)
+
+    vector_x = vectorizer.transform(text)
+    predictions = mnb_classifier.predict(vector_x)
+
+    # sentiment_map = {0:'negative',1:'neutral',2:'positive'}
+    # predicted_sentiments = [sentiment_map[pred] for pred in predictions]
+
+    return predictions.mean()
