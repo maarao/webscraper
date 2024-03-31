@@ -19,9 +19,9 @@ function App() {
   const [factuality, setFactuality] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = () => {
     setLoading(true);
