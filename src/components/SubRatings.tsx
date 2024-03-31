@@ -64,7 +64,7 @@ const SubRatings = ({
         <p>{relevance}</p>
       </div>
       <Progress
-        value={relevance}
+        value={relevance * 10}
         className='col-span-2'
         indicatorColor='bg-gradient-to-r from-rose-600 to-rose-400'
       />
