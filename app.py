@@ -55,7 +55,7 @@ def predict():
 
     print("Score: ",score)
     # print("Text", text)
-    return jsonify({'score': score, 'fact_check': relevancy, 'imageurls': images_urls, 'polarity': polar, 'subjectivity': subject, 'bias': bias_classificiation_name[bias], 'real': real})
+    return jsonify({'score': score, 'fact_check': relevancy, 'imageurls': images_urls, 'polarity': p_mean, 'subjectivity': subject, 'bias': bias_classificiation_name[bias], 'real': real})
 
 
 
