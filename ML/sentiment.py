@@ -57,7 +57,7 @@ def polarity(text):
     polarity_mean = np.mean(polarity_score)
     # polarity_range = polarity_max - polarity_min
 
-    return polarity_mean
+    return polarity_mean, polarity_std
 
 def subjectivity(text):
     text = [phrase for phrase in text if phrase.count(' ') > 2]

@@ -42,7 +42,7 @@ def predict():
 
     real = obj.real_classification(class_text)
     bias = obj.bias_classification(class_text)
-    polar = polarity(sent_text) # Between [-1, 1] where -1 is negative and 1 is positive
+    p_mean, p_std = polarity(sent_text) # Between [-1, 1] where -1 is negative and 1 is positive
     subject = subjectivity(sent_text) # between 0 - 1 (1 is opinionated), (0 is factual)
     fact_check_score, images_urls = fact_check(URL)
     classification_score = real + bias*0.2
