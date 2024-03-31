@@ -5,12 +5,20 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
-const SubRatings = ({ polarity }: { polarity: number }) => {
+const SubRatings = ({
+  consistency,
+  polarity,
+  factuality,
+}: {
+  consistency: number;
+  polarity: number;
+  factuality: number;
+}) => {
   // return elements with categories in the left column and scores in the right
   return (
     <div className='grid grid-rows-8 grid-cols-1 gap-y-1 scale-90 w-64 place-items-center text-xl font-light tracking-wider'>
       <div className='flex items-center justify-between w-full'>
-        <HoverCard>
+        <HoverCard openDelay={300} closeDelay={0}>
           <HoverCardTrigger>
             <h2 className='font-semibold'>Bias:</h2>
           </HoverCardTrigger>
@@ -29,7 +37,7 @@ const SubRatings = ({ polarity }: { polarity: number }) => {
         indicatorColor='bg-gradient-to-r from-green-400 to-green-300'
       />
       <div className='flex items-center justify-between w-full'>
-        <HoverCard>
+        <HoverCard openDelay={300} closeDelay={0}>
           <HoverCardTrigger>
             <h2 className='font-semibold'>Consistency:</h2>
           </HoverCardTrigger>
@@ -40,15 +48,15 @@ const SubRatings = ({ polarity }: { polarity: number }) => {
             </p>
           </HoverCardContent>
         </HoverCard>
-        <p>3</p>
+        <p>{consistency}</p>
       </div>
       <Progress
-        value={32}
+        value={consistency}
         className='col-span-2'
         indicatorColor='bg-gradient-to-r from-rose-600 to-rose-400'
       />
       <div className='flex items-center justify-between w-full'>
-        <HoverCard>
+        <HoverCard openDelay={300} closeDelay={0}>
           <HoverCardTrigger>
             <h2 className='font-semibold'>Polarity:</h2>
           </HoverCardTrigger>
@@ -71,7 +79,7 @@ const SubRatings = ({ polarity }: { polarity: number }) => {
         className='col-span-2 bg-gradient-to-r from-sky-400 to-yellow-400'
       />
       <div className='flex items-center justify-between w-full'>
-        <HoverCard>
+        <HoverCard openDelay={300} closeDelay={0}>
           <HoverCardTrigger>
             <h2 className='font-semibold'>Factuality:</h2>
           </HoverCardTrigger>
@@ -82,12 +90,18 @@ const SubRatings = ({ polarity }: { polarity: number }) => {
             </p>
           </HoverCardContent>
         </HoverCard>
-        <p>62</p>
+        <p>{factuality}</p>
       </div>
       <Progress
-        value={62}
+        value={factuality}
         className='col-span-2'
-        indicatorColor='bg-gradient-to-r from-yellow-500 to-yellow-300'
+        indicatorColor={`bg-gradient-to-r ${
+          factuality < 50
+            ? "from-rose-600 to-red-400"
+            : factuality < 80
+            ? "from-yellow-500 to-yellow-300"
+            : "from-green-400 to-green-300"
+        }`}
       />
     </div>
   );

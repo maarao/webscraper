@@ -54,7 +54,7 @@ const MainRating = ({ score }: { score: number }) => {
             pathColor: `${color}`,
           })}
         >
-          <HoverCard>
+          <HoverCard openDelay={300} closeDelay={0}>
             <HoverCardTrigger className='flex flex-col items-center'>
               <h1 className=' text-center text-lg font-light tracking-wide drop-shadow-2xl'>
                 Overall Score:
