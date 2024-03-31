@@ -102,8 +102,8 @@ class Classification:
         p1_list = y_pred1.tolist()
         p3_list = y_pred3.tolist()
 
-        res_rando = max(set(p1_list), key=p1_list.count)
-        res_adab = max(set(p3_list), key=p3_list.count)
+        res_rando = max(set(y_pred1))
+        res_adab = max(set(y_pred3))
 
         result = 0
 
