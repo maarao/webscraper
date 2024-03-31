@@ -15,7 +15,10 @@ const SubRatings = ({ polarity }: { polarity: number }) => {
             <h2 className='font-semibold'>Bias:</h2>
           </HoverCardTrigger>
           <HoverCardContent side='left' className='translate-y-10'>
-            <p>Bias depends on </p>
+            <p>
+              Bias accumulates different types of biases and adds them together.
+              Higher means less bias.{" "}
+            </p>
           </HoverCardContent>
         </HoverCard>
         <p>87</p>
