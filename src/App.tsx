@@ -43,7 +43,10 @@ function App() {
   return (
     <main className='flex flex-col items-center py-4 max-h-[350px] w-[680px] p-4 gap-4 animate-slide-from-top-with-fade origin-top-left'>
       <div className='flex justify-between w-full items-center px-4'>
-        <h1 className='text-4xl font-light tracking-wide'>FactCheck</h1>
+        <div className='flex gap-2 items-center'>
+          <img src='/fclogo.png' alt='FactCheck Logo' className='w-12 h-12' />
+          <h1 className='text-4xl font-light tracking-wide'>FactCheck</h1>
+        </div>
         <div className='flex item-center gap-2'>
           <HoverCard openDelay={0} closeDelay={0}>
             <HoverCardTrigger asChild>
