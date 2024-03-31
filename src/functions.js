@@ -18,6 +18,7 @@ const sendUrl = async (tab) => {
       body: JSON.stringify({ text: url }),
     });
     const data = await response.json();
+    console.log("Success:", data);
     localStorage.setItem("data", JSON.stringify(data));
   } catch (error) {
     console.error("Error:", error);
