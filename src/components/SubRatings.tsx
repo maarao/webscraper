@@ -95,7 +95,7 @@ const SubRatings = ({
         className='col-span-2'
         indicatorColor={`bg-gradient-to-r ${
           factuality < 50
-            ? "from-red-400 to-red-300"
+            ? "from-rose-600 to-red-400"
             : factuality < 80
             ? "from-yellow-500 to-yellow-300"
             : "from-green-400 to-green-300"
