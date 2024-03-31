@@ -49,10 +49,10 @@ def predict():
         relevancy = 1
 
     bias_classificiation_name = ['Bias', 'Conspiracy', 'Fake', 'BS', 'Satire', 'Hate', 'Junksci', 'State']
-    classification_score = real + bias_classification_percentages[bias]
     bias_classification_percentages = [0.6, 0, 0.1, 0.2, 0.7, 0.5, 0, 1]
+    classification_score = real + bias_classification_percentages[bias]
 
-    score = (relevancy * .2 + real * .15 + (0.4 * (0.5 * (1 - subject) + .3 * (1 - p_std) + .2 * (1 - abs(p_mean)))) + bias_classification_percentages[bias] * .25)
+    score = (relevancy * .2 + (1 - real) * .15 + (0.4 * (0.5 * (1 - subject) + .3 * (1 - p_std) + .2 * (1 - abs(p_mean)))) + bias_classification_percentages[bias] * .25)
 
     print("Score: ",score)
     # print("Text", text)
