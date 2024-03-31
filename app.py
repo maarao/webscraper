@@ -6,6 +6,7 @@ import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from ML.classification import Classification
+from ML.sentiment import polarity, subjectivity
 from googleSearch import fact_check
 import nltk
 from nltk.corpus import stopwords
@@ -32,13 +33,17 @@ def predict():
     parsed_url = urlparse(URL).netloc
     base_url = parsed_url[4:]
 
-    text = []
+    class_text = []
+    sent_text = []
     # Find all <p> elements and print their text
     for paragraph in soup.find_all('p'):
-        text.append(preprocess_text(paragraph.get_text()))
+        sent_text.append(sentiment_preprocess(paragraph.get_text()))
+        class_text.append(classifier_preprocess(paragraph.get_text()))
 
-    real = obj.real_classification(text)
-    bias = obj.bias_classification(text)
+    real = obj.real_classification(class_text)
+    bias = obj.bias_classification(class_text)
+    polar = polarity(sent_text)
+    subject = subjectivity(sent_text)
     fact_check_score = fact_check(URL)
     classification_score = real + bias*0.2
     print(classification_score)
@@ -51,7 +56,7 @@ def predict():
 
 
 
-def preprocess_text(text):
+def classifier_preprocess(text):
 
     text = re.sub(r"(@\[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)|^rt|http.+?", "", text)
     # Tokenize the text into words
@@ -62,6 +67,19 @@ def preprocess_text(text):
     # Remove stop words
     stop_words = stopwords.words('english')
     words = [word for word in text.split() if word not in (stop_words)]
+    words = " ".join([word for word in words if word.isalpha()]).lower()    
+        
+    return words
+
+def sentiment_preprocess(text):
+
+    text = re.sub(r"(@\[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)|^rt|http.+?", " ", text)
+    # Tokenize the text into words
+    words = word_tokenize(text.lower())
+
+    words = [word for word in words if word not in string.punctuation]
+
+    # Remove stop words
     words = " ".join([word for word in words if word.isalpha()]).lower()    
         
     return words
