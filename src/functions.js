@@ -7,9 +7,9 @@ export function getCurrentTab() {
   });
 }
 
-const sendUrl = (tab) => {
+const sendUrl = async (tab) => {
   let url = tab.url;
-  fetch("http://127.0.0.1:5000/process", {
+  const data = await fetch("http://127.0.0.1:5000/process", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,4 +21,5 @@ const sendUrl = (tab) => {
       console.log(data.score);
     })
     .catch((error) => console.error("Error:", error));
+  console.log(data);
 };
