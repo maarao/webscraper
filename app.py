@@ -48,7 +48,7 @@ def predict():
     classification_score = real + bias*0.2
     print(classification_score)
 
-    score = fact_check_score / 10 * .3 + classification_score * .3 + ((polar / 2) + .5) * .2 + subject * .2
+    score = fact_check_score / 10 * .3 + classification_score * .3 + ((polar / 2) + .5) * .2 + (1 - subject) * .2
 
     print("Score: ",score)
     # print("Text", text)
