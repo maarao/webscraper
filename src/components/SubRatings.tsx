@@ -6,10 +6,12 @@ import {
 } from "@/components/ui/hover-card";
 
 const SubRatings = ({
+  classification,
   relevance,
   polarity,
   factuality,
 }: {
+  classification: number;
   relevance: number;
   polarity: number;
   factuality: number;
@@ -34,7 +36,7 @@ const SubRatings = ({
             </p>
           </HoverCardContent>
         </HoverCard>
-        <p>87</p>
+        <p>{classification}</p>
       </div>
       <Progress
         value={87}
