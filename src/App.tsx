@@ -32,7 +32,7 @@ function App() {
     setTimeout(() => {
       setData(JSON.parse(localStorage.getItem("data")));
       setScore(Math.trunc(data.score * 100));
-      setClassification(data.bias * 100);
+      setClassification(data.bias);
       setRelevance(data.fact_check * 10);
       setPolarity(Math.round(data.polarity * 100) / 100);
       setFactuality(Math.trunc(data.subjectivity * 100));
