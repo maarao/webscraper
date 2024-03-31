@@ -24,8 +24,9 @@ function App() {
     setTimeout(() => {
       setData(JSON.parse(localStorage.getItem("data")));
       setScore(Math.trunc(data.score * 100));
-      setPolarity(data.polarity);
-      setFactuality(data.factuality);
+      setPolarity(Math.round(data.polarity * 100) / 100);
+      setFactuality(Math.trunc(data.subjectivity * 100));
+      console.log(factuality);
       setLoading(false);
     }, Math.random() * 200 + 1200);
   };
