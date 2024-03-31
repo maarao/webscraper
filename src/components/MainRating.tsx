@@ -2,6 +2,11 @@ import {
   CircularProgressbarWithChildren,
   buildStyles,
 } from "react-circular-progressbar";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { useTheme } from "@/components/theme-provider";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -24,10 +29,7 @@ const MainRating = ({ score }: { score: number }) => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <h1 className=' text-center text-2xl font-light tracking-wide drop-shadow-2xl'>
-        Overall Score:
-      </h1>
-      <div className='size-64 rounded-full shadow-2xl dark:shadow-zinc-900'>
+      <div className='size-[15.5rem] rounded-full shadow-lg dark:shadow-2xl dark:shadow-zinc-900'>
         <CircularProgressbarWithChildren
           value={score}
           styles={buildStyles({
@@ -52,7 +54,21 @@ const MainRating = ({ score }: { score: number }) => {
             pathColor: `${color}`,
           })}
         >
-          <p className='text-7xl font-extralight'>{`${score}%`}</p>
+          <HoverCard>
+            <HoverCardTrigger className='flex flex-col items-center'>
+              <h1 className=' text-center text-lg font-light tracking-wide drop-shadow-2xl'>
+                Overall Score:
+              </h1>
+              <p className='text-7xl font-extralight'>{`${score}%`}</p>
+            </HoverCardTrigger>
+            <HoverCardContent side='right' sideOffset={30}>
+              <p className='text-lg'>
+                The total score is a summation of the separate categories
+                divided by total possible points, which is totaled from the
+                categories and their weights.
+              </p>
+            </HoverCardContent>
+          </HoverCard>
         </CircularProgressbarWithChildren>
       </div>
     </div>
