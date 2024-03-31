@@ -64,7 +64,8 @@ function App() {
       <div className='flex gap-8 items-center px-4'>
         <div>
           {loading ? (
-            <Skeleton className='size-64 rounded-full' />
+            // <Skeleton className='size-64 rounded-full' />
+            <MainRating score={score} />
           ) : (
             <MainRating score={score} />
           )}
