@@ -21,6 +21,7 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    localStorage.removeItem("data");
     fetchData();
   }, []);
 
@@ -51,7 +52,9 @@ function App() {
               sideOffset={30}
               className='translate-y-4'
             >
-              <p>Hover over a category for more information.</p>
+              <p className='text-lg'>
+                Hover over a category for more information.
+              </p>
             </HoverCardContent>
           </HoverCard>
           <ThemeToggle />
