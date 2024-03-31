@@ -12,9 +12,9 @@ function App() {
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const fetchData = () => {
     setLoading(true);
@@ -27,7 +27,7 @@ function App() {
   };
 
   return (
-    <main className='border border-red-500 flex flex-col items-center py-4 max-h-[350px] w-[680px] p-4 gap-4 animate-slide-from-top-with-fade'>
+    <main className='border border-red-500 flex flex-col items-center py-4 max-h-[350px] w-[680px] p-4 gap-4 animate-slide-from-top-with-fade origin-top-left'>
       <div className='flex justify-between w-full items-center px-4'>
         <h1 className='text-4xl font-light tracking-wide'>Title</h1>
         <div className='flex item-center gap-2'>
