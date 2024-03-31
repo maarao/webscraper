@@ -81,13 +81,10 @@ const SubRatings = ({
           </HoverCardContent>
         </HoverCard>
         <p>{polarity}</p>
-        {/* <div
-          className={`border border-black dark:border-white h-6 absolute ${
-            polarity < 0
-              ? `left-[${250}px]`
-              : `right-[${(polarity / 2 - 0.5) * 100}%]`
-          } bottom-[4.1rem] z-10`}
-        /> */}
+        <div
+          className={`border border-black dark:border-white h-6 absolute left-1/2 bottom-[4.1rem] z-10`}
+        />
+        <p className='absolute left-[48.5%] text-base top-[8.6rem]'>0</p>
       </div>
       <Progress
         value={50}

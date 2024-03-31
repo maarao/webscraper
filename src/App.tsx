@@ -21,10 +21,10 @@ function App() {
   const [factuality, setFactuality] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    localStorage.removeItem("data");
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   localStorage.removeItem("data");
+  //   fetchData();
+  // }, []);
 
   const fetchData = () => {
     setLoading(true);
