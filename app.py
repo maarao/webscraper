@@ -45,7 +45,7 @@ def predict():
     p_mean, p_std = polarity(sent_text) # Between [-1, 1] where -1 is negative and 1 is positive
     subject = subjectivity(sent_text) # between 0 - 1 (1 is opinionated), (0 is factual)
     relevancy, images_urls = fact_check(URL)
-    classification_score = real + bias*0.2
+    classification_score = real + bias_classification_percentages[bias]
     print(classification_score)
 
     bias_classificiation_name = ['Bias', 'Conspiracy', 'Fake', 'BS', 'Satire', 'Hate', 'Junksci', 'State']
@@ -55,7 +55,7 @@ def predict():
 
     print("Score: ",score)
     # print("Text", text)
-    return jsonify({'score': score, 'fact_check': relevancy, 'imageurls': images_urls, 'polarity': p_mean, 'subjectivity': subject, 'bias': bias_classification_percentages[bias], 'real': real})
+    return jsonify({'score': score, 'fact_check': relevancy, 'imageurls': images_urls, 'polarity': p_mean, 'subjectivity': subject, 'bias': classification_score, 'real': real})
 
 
 
