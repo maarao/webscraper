@@ -39,7 +39,7 @@ def predict():
 
     real = obj.real_classification(text)
     bias = obj.bias_classification(text)
-    fact_check_score, image_urls = fact_check(URL)
+    fact_check_score = fact_check(URL)
     classification_score = real + bias*0.2
     print(classification_score)
 
@@ -47,7 +47,7 @@ def predict():
 
     print("Score: ",score)
     # print("Text", text)
-    return jsonify({'score': score, 'fact_check': fact_check_score, 'image_urls': image_urls})
+    return jsonify({'score': score, 'fact_check': fact_check_score})
 
 
 
