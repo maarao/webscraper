@@ -51,7 +51,7 @@ function App() {
               <Skeleton className='h-8 w-24' />
             </div>
           ) : (
-            <SubRatings />
+            <SubRatings polarity={0} />
           )}
         </div>
       </div>
