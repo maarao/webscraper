@@ -11,9 +11,9 @@ function App() {
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = () => {
     setLoading(true);
