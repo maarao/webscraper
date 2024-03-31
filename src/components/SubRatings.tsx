@@ -42,9 +42,9 @@ const SubRatings = ({
         value={classification * 100}
         className='col-span-2'
         indicatorColor={`bg-gradient-to-r ${
-          classification < 50
+          classification < 0.5
             ? "from-rose-600 to-red-400"
-            : classification < 80
+            : classification < 0.8
             ? "from-yellow-500 to-yellow-300"
             : "from-green-400 to-green-300"
         }`}
