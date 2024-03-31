@@ -93,7 +93,13 @@ const SubRatings = ({
       <Progress
         value={factuality}
         className='col-span-2'
-        indicatorColor='bg-gradient-to-r from-yellow-500 to-yellow-300'
+        indicatorColor={`bg-gradient-to-r ${
+          factuality < 50
+            ? "from-red-400 to-red-300"
+            : factuality < 80
+            ? "from-yellow-500 to-yellow-300"
+            : "from-green-400 to-green-300"
+        }`}
       />
     </div>
   );
