@@ -44,13 +44,14 @@ def predict():
     parsed_url = urlparse(URL).netloc
     base_url = parsed_url[4:]
 
-    # Initialize the ML classification
-    print(obj.label_classification())
+    
 
     text = []
     # Find all <p> elements and print their text
     for paragraph in soup.find_all('p'):
-        text.append(base_url+ " "+preprocess_text(paragraph.get_text()))
+        text.append(preprocess_text(paragraph.get_text()))
+    # Initialize the ML classification
+    print(obj.label_classification(text))
 
     print(text)
     return jsonify({'text': text})

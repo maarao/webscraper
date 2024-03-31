@@ -77,7 +77,7 @@ class Classification:
 
         y = self.df1['label']
         x = self.df1.loc[:, ['site_url','text_without_stopwords']]
-        x['source'] = x['site_url'].astype(str) + " "+x["text_without_stopwords"]
+        x['source'] = x["text_without_stopwords"]
         x = x.drop(['site_url', 'text_without_stopwords'], axis=1)
         x = x.source
 
@@ -89,11 +89,11 @@ class Classification:
         tfidf_test = tfidf_vect.transform(text)
 
         # Random Forest 
-        Rando = RandomForestClassifier(n_estimators=12,random_state=0)
+        Rando = RandomForestClassifier(n_estimators=1,random_state=2)
         Rando.fit(tfidf_train,y_train)
         y_pred1 = Rando.predict(tfidf_test)
 
-        Adab = AdaBoostClassifier(DecisionTreeClassifier(max_depth=10),n_estimators=5,random_state=1)
+        Adab = AdaBoostClassifier(DecisionTreeClassifier(max_depth=5),n_estimators=3,random_state=1)
         Adab.fit(tfidf_train, y_train)
         y_pred3 = Adab.predict(tfidf_test)
 
