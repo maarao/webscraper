@@ -1,8 +1,20 @@
+import re
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
-def fact_check(search_term):
+def fact_check(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    h1_elements = soup.find_all('h1')
+
+    if h1_elements:
+        # Remove special characters from the title
+        search_term = re.sub(r'[^\w\s]', '', h1_elements[0].text.strip())
+    else:
+        search_term = ""
+
+
     base_url = "https://www.google.com/search?q="
     formatted_term = '+'.join(search_term.split())
     search = base_url + formatted_term
@@ -33,7 +45,6 @@ def fact_check(search_term):
 
     base_urls = [urlparse(url).netloc for url in cleaned_urls]
     filtered_urls = [url.replace('www.', '') if url.startswith('www.') else url for url in base_urls]
-    print(filtered_urls)
 
     count_good = 0
 
@@ -46,4 +57,5 @@ def fact_check(search_term):
     return count_good
 
 if __name__ == '__main__':
-    print(fact_check("The Pope supports restitution of Indigenous items to Canada. So why haven't they come home?"))
+    url = "https://www.theglobeandmail.com/arts/article-vatican-indigenous-items-repatriation/"
+    print(fact_check(url))
