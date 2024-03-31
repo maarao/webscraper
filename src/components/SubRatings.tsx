@@ -42,9 +42,9 @@ const SubRatings = ({
         value={classification * 100}
         className='col-span-2'
         indicatorColor={`bg-gradient-to-r ${
-          classification < 50
+          classification < 0.5
             ? "from-rose-600 to-red-400"
-            : classification < 80
+            : classification < 0.8
             ? "from-yellow-500 to-yellow-300"
             : "from-green-400 to-green-300"
         }`}
@@ -64,7 +64,7 @@ const SubRatings = ({
         <p>{relevance}</p>
       </div>
       <Progress
-        value={relevance}
+        value={relevance * 10}
         className='col-span-2'
         indicatorColor='bg-gradient-to-r from-rose-600 to-rose-400'
       />
@@ -81,13 +81,10 @@ const SubRatings = ({
           </HoverCardContent>
         </HoverCard>
         <p>{polarity}</p>
-        {/* <div
-          className={`border border-black dark:border-white h-6 absolute ${
-            polarity < 0
-              ? `left-[${250}px]`
-              : `right-[${(polarity / 2 - 0.5) * 100}%]`
-          } bottom-[4.1rem] z-10`}
-        /> */}
+        <div
+          className={`border border-black dark:border-white h-6 absolute left-1/2 bottom-[4.1rem] z-10`}
+        />
+        <p className='absolute left-[48.5%] text-base top-[8.6rem]'>0</p>
       </div>
       <Progress
         value={50}
