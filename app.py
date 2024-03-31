@@ -45,14 +45,15 @@ def predict():
     p_mean, p_std = polarity(sent_text) # Between [-1, 1] where -1 is negative and 1 is positive
     subject = subjectivity(sent_text) # between 0 - 1 (1 is opinionated), (0 is factual)
     relevancy, images_urls = fact_check(URL)
+    calculate_rel = relevancy
     if relevancy > 1:
-        relevancy = 1
+        calculate_rel = 1
 
     bias_classificiation_name = ['Bias', 'Conspiracy', 'Fake', 'BS', 'Satire', 'Hate', 'Junksci', 'State']
     bias_classification_percentages = [0.6, 0, 0.1, 0.2, 0.7, 0.5, 0, 1]
-    classification_score = real + bias_classification_percentages[bias]
+    classification_score = real * 0.6 + bias_classification_percentages[bias] * 0.4
 
-    score = (relevancy * .2 + (real) * .15 + (0.4 * (0.5 * (1 - subject) + .3 * (1 - p_std) + .2 * (1 - abs(p_mean)))) + bias_classification_percentages[bias] * .25)
+    score = (calculate_rel * .2 + (real) * .15 + (0.4 * (0.5 * (1 - subject) + .3 * (1 - p_std) + .2 * (1 - abs(p_mean)))) + bias_classification_percentages[bias] * .25)
 
     print("Score: ",score)
     # print("Text", text)
