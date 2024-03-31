@@ -14,10 +14,14 @@ import { BotIcon } from "lucide-react";
 
 function App() {
   const [score, setScore] = useState(0);
+  const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
 
   const fetchData = () => {
     getCurrentTab();
-    setScore(85);
+    setTimeout(() => {
+      setData(JSON.parse(localStorage.getItem("data")));
+      setScore(Math.trunc(data.score * 100));
+    }, 2000);
   };
 
   return (

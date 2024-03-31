@@ -6,6 +6,7 @@ import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from ML.classification import Classification
+from googleSearch import fact_check
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -36,11 +37,13 @@ def predict():
     for paragraph in soup.find_all('p'):
         text.append(preprocess_text(paragraph.get_text()))
 
-    # Initialize the ML classification
-    # print(obj.label_classification(text))
+    classification_score = obj.label_classification(text)
+    fact_check_score = fact_check(URL)
 
-    print("Text", text)
-    return jsonify({'text': text})
+    score = fact_check_score / 10 * .3 + classification_score * .7
+
+    # print("Text", text)
+    return jsonify({'score': score, 'fact_check': fact_check_score})
 
 def preprocess_text(text):
 
