@@ -21,7 +21,7 @@ function App() {
   };
 
   return (
-    <main className='grid place-items-center py-8 w-[350px] h-[600px] border border-red-500 gap-4 animate-slide-from-top-with-fade'>
+    <main className='grid place-items-center py-8 w-[350px] h-[600px] gap-4 animate-slide-from-top-with-fade'>
       <div className='grid grid-cols-3 place-items-center gap-20 -mt-6'>
         <BotIcon />
         <h1 className='text-4xl'>Title</h1>
