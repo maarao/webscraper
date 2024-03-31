@@ -20,7 +20,7 @@ const SubRatings = ({
       <div className='flex items-center justify-between w-full'>
         <HoverCard openDelay={300} closeDelay={0}>
           <HoverCardTrigger>
-            <h2 className='font-semibold'>Bias:</h2>
+            <h2 className='font-semibold'>Classification:</h2>
           </HoverCardTrigger>
           <HoverCardContent
             side='left'
@@ -28,8 +28,9 @@ const SubRatings = ({
             className='translate-y-10'
           >
             <p>
-              Bias accumulates different types of biases and adds them together.
-              Higher means less bias.{" "}
+              Classification measures the difference between categorical
+              variables across real and fake news sources as well as bias
+              categories. Higher is better.
             </p>
           </HoverCardContent>
         </HoverCard>
@@ -43,11 +44,11 @@ const SubRatings = ({
       <div className='flex items-center justify-between w-full'>
         <HoverCard openDelay={300} closeDelay={0}>
           <HoverCardTrigger>
-            <h2 className='font-semibold'>relevance:</h2>
+            <h2 className='font-semibold'>Relevance:</h2>
           </HoverCardTrigger>
           <HoverCardContent side='left' sideOffset={30}>
             <p>
-              relevance looks for other sources with similar keywords in the
+              Relevance looks for other sources with similar keywords in the
               title and increases the score with each find.
             </p>
           </HoverCardContent>
@@ -59,7 +60,7 @@ const SubRatings = ({
         className='col-span-2'
         indicatorColor='bg-gradient-to-r from-rose-600 to-rose-400'
       />
-      <div className='flex items-center justify-between w-full'>
+      <div className='flex items-center justify-between w-full left-'>
         <HoverCard openDelay={300} closeDelay={0}>
           <HoverCardTrigger>
             <h2 className='font-semibold'>Polarity:</h2>
@@ -72,11 +73,13 @@ const SubRatings = ({
           </HoverCardContent>
         </HoverCard>
         <p>{polarity}</p>
-        <div
-          className={`border border-white h-6 absolute left-[${
-            (polarity + 0.5) * 100
-          }%] bottom-[4.10rem] z-10`}
-        />
+        {/* <div
+          className={`border border-black dark:border-white h-6 absolute ${
+            polarity < 0
+              ? `left-[${250}px]`
+              : `right-[${(polarity / 2 - 0.5) * 100}%]`
+          } bottom-[4.1rem] z-10`}
+        /> */}
       </div>
       <Progress
         value={50}

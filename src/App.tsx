@@ -15,15 +15,16 @@ import {
 function App() {
   const [score, setScore] = useState(0);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
+  const [classification, setClassification] = useState(0);
   const [relevance, setRelevance] = useState(0);
   const [polarity, setPolarity] = useState(0);
   const [factuality, setFactuality] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    localStorage.removeItem("data");
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   localStorage.removeItem("data");
+  //   fetchData();
+  // }, []);
 
   const fetchData = () => {
     setLoading(true);
@@ -31,6 +32,7 @@ function App() {
     setTimeout(() => {
       setData(JSON.parse(localStorage.getItem("data")));
       setScore(Math.trunc(data.score * 100));
+      setClassification(data.bias * 100);
       setRelevance(data.fact_check * 10);
       setPolarity(Math.round(data.polarity * 100) / 100);
       setFactuality(Math.trunc(data.subjectivity * 100));
@@ -39,9 +41,9 @@ function App() {
   };
 
   return (
-    <main className='border border-red-500 flex flex-col items-center py-4 max-h-[350px] w-[680px] p-4 gap-4 animate-slide-from-top-with-fade origin-top-left'>
+    <main className='flex flex-col items-center py-4 max-h-[350px] w-[680px] p-4 gap-4 animate-slide-from-top-with-fade origin-top-left'>
       <div className='flex justify-between w-full items-center px-4'>
-        <h1 className='text-4xl font-light tracking-wide'>Title</h1>
+        <h1 className='text-4xl font-light tracking-wide'>FactCheck</h1>
         <div className='flex item-center gap-2'>
           <HoverCard openDelay={0} closeDelay={0}>
             <HoverCardTrigger asChild>
@@ -73,7 +75,7 @@ function App() {
         <div>
           {loading ? (
             <div className='grid grid-rows-8 grid-cols-1 gap-y-1 scale-90 w-64'>
-              <Skeleton className='h-6 w-12' />
+              <Skeleton className='h-6 w-48' />
               <Skeleton className='h-6 w-full' />
               <Skeleton className='h-6 w-32' />
               <Skeleton className='h-6 w-full' />
@@ -85,7 +87,7 @@ function App() {
           ) : (
             <SubRatings
               relevance={relevance}
-              polarity={polarity}
+              polarity={-0.8}
               factuality={factuality}
             />
           )}
