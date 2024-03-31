@@ -64,9 +64,15 @@ const SubRatings = ({
         <p>{relevance}</p>
       </div>
       <Progress
-        value={relevance * 10}
+        value={relevance < 2 ? 50 : 50 + relevance * 10}
         className='col-span-2'
-        indicatorColor='bg-gradient-to-r from-rose-600 to-rose-400'
+        indicatorColor={`bg-gradient-to-r ${
+          relevance < 2
+            ? "from-rose-600 to-red-400"
+            : relevance < 3
+            ? "from-yellow-500 to-yellow-300"
+            : "from-green-400 to-green-300"
+        }`}
       />
       <div className='flex items-center justify-between w-full left-'>
         <HoverCard openDelay={300} closeDelay={0}>
@@ -106,7 +112,7 @@ const SubRatings = ({
             </p>
           </HoverCardContent>
         </HoverCard>
-        <p>{factuality}</p>
+        <p>{factuality}%</p>
       </div>
       <Progress
         value={factuality}
