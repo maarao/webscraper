@@ -37,7 +37,8 @@ def predict():
         text.append(preprocess_text(paragraph.get_text()))
 
     # Initialize the ML classification
-    # print(obj.label_classification(text))
+    real = obj.real_classification(text)
+    bias = obj.bias_classification(text)
 
     print("Text", text)
     return jsonify({'text': text})

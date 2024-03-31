@@ -42,6 +42,7 @@ sr_ = Style.RESET_ALL
 
 class Classification:
 
+
     def __init__(self):
         # Pull data and remove null values
         df = pd.read_csv(r'./ML/data/news_articles.csv', encoding="latin", index_col=0)
@@ -56,24 +57,25 @@ class Classification:
         df.type = [type1[item] for item in df.type] 
 
         # Randomize the sample
+        df.drop(df[df['site_url'] == 'abeldanger.net'].index, inplace=True)
         self.df1 = df.sample(frac=1)
 
-    def preprocess_text(self, text):
+    # def preprocess_text(self, text):
 
-        text = re.sub(r"(@\[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)|^rt|http.+?", "", text)
-        # Tokenize the text into words
-        words = word_tokenize(text.lower())
+    #     text = re.sub(r"(@\[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)|^rt|http.+?", "", text)
+    #     # Tokenize the text into words
+    #     words = word_tokenize(text.lower())
 
-        words = [word for word in words if word not in string.punctuation]
+    #     words = [word for word in words if word not in string.punctuation]
 
-        # Remove stop words
-        stop_words = stopwords.words('english')
-        words = [word for word in text.split() if word not in (stop_words)]
-        words = " ".join([word for word in words if word.isalpha()]).lower()    
+    #     # Remove stop words
+    #     stop_words = stopwords.words('english')
+    #     words = [word for word in text.split() if word not in (stop_words)]
+    #     words = " ".join([word for word in words if word.isalpha()]).lower()    
         
-        return words
+    #     return words
 
-    def label_classification(self, text):
+    def real_classification(self, text):
 
         y = self.df1['label']
         x = self.df1.loc[:, ['site_url','text_without_stopwords']]
@@ -97,8 +99,11 @@ class Classification:
         Adab.fit(tfidf_train, y_train)
         y_pred3 = Adab.predict(tfidf_test)
 
-        res_rando = max(set(y_pred1))
-        res_adab = max(set(y_pred3))
+        p1_list = y_pred1.tolist()
+        p3_list = y_pred3.tolist()
+
+        res_rando = max(set(p1_list), key=p1_list.count)
+        res_adab = max(set(p3_list), key=p3_list.count)
 
         result = 0
 
@@ -107,6 +112,39 @@ class Classification:
                 result = 1
         else:
             result = 0.5
+
+        return result
+    
+
+    def bias_classification(self, text):
+
+        y = self.df1['type']
+        x = self.df1.loc[:, ['site_url','text_without_stopwords']]
+        x['source'] = x["text_without_stopwords"]
+        x = x.drop(['site_url', 'text_without_stopwords'], axis=1)
+        x = x.source
+
+        # Train the TfIdf Vectorizer
+        x_train,_,y_train,_ = train_test_split(x,y,test_size=0.30)
+        tfidf_vect = TfidfVectorizer(stop_words = 'english')
+        tfidf_train = tfidf_vect.fit_transform(x_train)
+        ## Testing out the text here
+        tfidf_test = tfidf_vect.transform(text)
+
+        # Random Forest 
+        Rando = RandomForestClassifier(n_estimators=1,random_state=2)
+        Rando.fit(tfidf_train,y_train)
+        y_pred1 = Rando.predict(tfidf_test)
+
+        Adab = AdaBoostClassifier(DecisionTreeClassifier(max_depth=5),n_estimators=3,random_state=1)
+        Adab.fit(tfidf_train, y_train)
+        y_pred3 = Adab.predict(tfidf_test)
+
+        p1_list = y_pred1.tolist()
+        p3_list = y_pred3.tolist()
+        p_list = p1_list + p3_list
+
+        result = max(set(p_list), key=p_list.count)        
 
         return result
 
