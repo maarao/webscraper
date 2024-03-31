@@ -7,18 +7,19 @@ export function getCurrentTab() {
   });
 }
 
-const sendUrl = (tab) => {
+const sendUrl = async (tab) => {
   let url = tab.url;
-  fetch("http://127.0.0.1:5000/process", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ text: url }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => console.error("Error:", error));
+  try {
+    const response = await fetch("http://127.0.0.1:5000/process", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: url }),
+    });
+    const data = await response.json();
+    localStorage.setItem("data", JSON.stringify(data));
+  } catch (error) {
+    console.error("Error:", error);
+  }
 };

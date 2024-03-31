@@ -14,14 +14,18 @@ import { BotIcon } from "lucide-react";
 
 function App() {
   const [score, setScore] = useState(0);
+  const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
 
   const fetchData = () => {
     getCurrentTab();
-    setScore(85);
+    setTimeout(() => {
+      setData(JSON.parse(localStorage.getItem("data")));
+      setScore(Math.trunc(data.score * 100));
+    }, 2000);
   };
 
   return (
-    <main className='grid place-items-center py-8 w-[350px] h-[600px] border border-red-500 gap-4 animate-slide-from-top-with-fade'>
+    <main className='grid place-items-center py-8 w-[350px] h-[600px] gap-4 animate-slide-from-top-with-fade'>
       <div className='grid grid-cols-3 place-items-center gap-20 -mt-6'>
         <BotIcon />
         <h1 className='text-4xl'>Title</h1>
