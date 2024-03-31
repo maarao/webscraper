@@ -9,8 +9,8 @@ const MainRating = ({ score }: { score: number }) => {
   const GREEN = "#41be7d";
   const YELLOW = "#f2ac42";
   const RED = "#be4141";
-  const BLACK = "#000000";
-  const WHITE = "#ffffff";
+  const BLACK = "#f4f4f5";
+  const WHITE = "#18181b";
   const theme = useTheme().theme;
   const PRIMARY = theme === "light" ? BLACK : WHITE;
 
@@ -27,7 +27,7 @@ const MainRating = ({ score }: { score: number }) => {
       <h1 className=' text-center text-2xl font-light tracking-wide drop-shadow-2xl'>
         Overall Score:
       </h1>
-      <div className='size-64 rounded-full shadow-2xl dark:shadow-zinc-800'>
+      <div className='size-64 rounded-full shadow-2xl dark:shadow-zinc-900'>
         <CircularProgressbarWithChildren
           value={score}
           styles={buildStyles({
