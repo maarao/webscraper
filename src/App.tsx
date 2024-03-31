@@ -15,7 +15,7 @@ import {
 function App() {
   const [score, setScore] = useState(0);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
-  const [consistency, setConsistency] = useState(0);
+  const [relevance, setRelevance] = useState(0);
   const [polarity, setPolarity] = useState(0);
   const [factuality, setFactuality] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ function App() {
     setTimeout(() => {
       setData(JSON.parse(localStorage.getItem("data")));
       setScore(Math.trunc(data.score * 100));
-      setConsistency(data.fact_check * 10);
+      setRelevance(data.fact_check * 10);
       setPolarity(Math.round(data.polarity * 100) / 100);
       setFactuality(Math.trunc(data.subjectivity * 100));
       setLoading(false);
@@ -84,7 +84,7 @@ function App() {
             </div>
           ) : (
             <SubRatings
-              consistency={consistency}
+              relevance={relevance}
               polarity={polarity}
               factuality={factuality}
             />

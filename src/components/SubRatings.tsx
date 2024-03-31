@@ -6,11 +6,11 @@ import {
 } from "@/components/ui/hover-card";
 
 const SubRatings = ({
-  consistency,
+  relevance,
   polarity,
   factuality,
 }: {
-  consistency: number;
+  relevance: number;
   polarity: number;
   factuality: number;
 }) => {
@@ -22,7 +22,11 @@ const SubRatings = ({
           <HoverCardTrigger>
             <h2 className='font-semibold'>Bias:</h2>
           </HoverCardTrigger>
-          <HoverCardContent side='left' className='translate-y-10'>
+          <HoverCardContent
+            side='left'
+            sideOffset={30}
+            className='translate-y-10'
+          >
             <p>
               Bias accumulates different types of biases and adds them together.
               Higher means less bias.{" "}
@@ -39,19 +43,19 @@ const SubRatings = ({
       <div className='flex items-center justify-between w-full'>
         <HoverCard openDelay={300} closeDelay={0}>
           <HoverCardTrigger>
-            <h2 className='font-semibold'>Consistency:</h2>
+            <h2 className='font-semibold'>relevance:</h2>
           </HoverCardTrigger>
           <HoverCardContent side='left' sideOffset={30}>
             <p>
-              Consistency looks for other sources with similar keywords in the
+              relevance looks for other sources with similar keywords in the
               title and increases the score with each find.
             </p>
           </HoverCardContent>
         </HoverCard>
-        <p>{consistency}</p>
+        <p>{relevance}</p>
       </div>
       <Progress
-        value={consistency}
+        value={relevance}
         className='col-span-2'
         indicatorColor='bg-gradient-to-r from-rose-600 to-rose-400'
       />
@@ -83,7 +87,11 @@ const SubRatings = ({
           <HoverCardTrigger>
             <h2 className='font-semibold'>Factuality:</h2>
           </HoverCardTrigger>
-          <HoverCardContent side='left' className='-translate-y-10'>
+          <HoverCardContent
+            side='left'
+            sideOffset={30}
+            className='-translate-y-10'
+          >
             <p>
               Factuality measures the subjectivity of the language by looking at
               the subjectivity of words and phrases, like "I liked the food".
