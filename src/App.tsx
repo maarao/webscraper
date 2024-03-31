@@ -86,8 +86,9 @@ function App() {
             </div>
           ) : (
             <SubRatings
+              classification={classification}
               relevance={relevance}
-              polarity={-0.8}
+              polarity={polarity}
               factuality={factuality}
             />
           )}
