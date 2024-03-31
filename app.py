@@ -37,7 +37,7 @@ def predict():
     for paragraph in soup.find_all('p'):
         text.append(preprocess_text(paragraph.get_text()))
 
-    classification_score = obj.label_classification(text)
+    classification_score = obj.real_classification(text)
     fact_check_score = fact_check(URL)
 
     score = fact_check_score / 10 * .3 + classification_score * .7
