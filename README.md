@@ -1,3 +1,8 @@
+# FactCheck
+
+![Example](public/example2.jpg)
+![Example](public/example1.jpg)
+
 # **What it does**
 
 FactCheck is a powerful Chrome extension designed to empower users with accurate and credible information while browsing the web. Leveraging the latest advancements in Natural Language Processing (NLP), Machine Learning (ML), and Neural Networks, FactCheck provides a comprehensive assessment of the credibility of information on the web pages you visit.
